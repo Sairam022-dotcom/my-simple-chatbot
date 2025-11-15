@@ -3,26 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Search Chat</title>
+    <title>MechChat</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="title" class="title-center">MechChat</div>
 
-<div class="center-container">
+    <div id="chat-container">
+        <div id="messages"></div>
 
-    <h1 class="title">Ask Anything</h1>
-
-    <div class="input-box">
-        <input type="text" id="userInput" placeholder="Ask about torque, CNC, materials..." 
-               onkeypress="if(event.key === 'Enter') sendMessage()">
-        <button onclick="sendMessage()">🔍</button>
+        <div id="input-area">
+            <input id="userInput" type="text" placeholder="Ask mechanical engineering questions...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
     </div>
 
-</div>
-
-<div id="chatbox" class="chatbox"></div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
 
