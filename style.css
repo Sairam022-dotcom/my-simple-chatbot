@@ -1,12 +1,14 @@
-body {
+html, body {
     margin: 0;
+    padding: 0;
+    background: #000000 !important;   /* FULL BLACK */
+    color: white !important;
+    height: 100%;
+    width: 100%;
     font-family: Arial, sans-serif;
-    background: #000000;     /* FULL BLACK THEME */
-    color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
 }
 
 /* TITLE IN CENTER */
@@ -15,9 +17,7 @@ body {
     font-weight: bold;
     margin-top: 120px;
     text-align: center;
-    color: white;            /* WHITE TITLE */
-    z-index: 9999;
-    position: relative;
+    color: white !important;
     transition: 0.5s;
 }
 
@@ -27,7 +27,7 @@ body {
     position: absolute;
     top: 20px;
     left: 20px;
-    color: white;
+    color: white !important;
     margin: 0;
 }
 
@@ -37,30 +37,21 @@ body {
     margin-top: 40px;
 }
 
-/* CHAT MESSAGES BOX */
+/* MESSAGES BOX — DARK */
 #messages {
-    background: #111111;     /* DARK BOX */
+    background: #111111 !important;
     padding: 20px;
     height: 450px;
-    overflow-y: auto;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(255,255,255,0.1);
-    color: white;
+    color: white !important;
+    overflow-y: auto;
+    box-shadow: 0 0 10px rgba(255,255,255,0.15);
 }
 
-.message {
-    margin-bottom: 18px;
-}
+.message { margin-bottom: 18px; }
 
-.user {
-    font-weight: bold;
-    color: #4da6ff;  /* Light blue like ChatGPT */
-}
-
-.bot {
-    font-weight: bold;
-    color: #55ff55;  /* Green for bot */
-}
+.user { color: #4da6ff !important; font-weight: bold; }
+.bot { color: #55ff55 !important; font-weight: bold; }
 
 #input-area {
     display: flex;
@@ -71,21 +62,20 @@ body {
     flex: 1;
     padding: 12px;
     border-radius: 8px;
-    background: #222;          /* dark input */
-    border: 1px solid #444;
-    color: white;
-    font-size: 16px;
+    background: #222 !important;
+    border: 1px solid #555 !important;
+    color: white !important;
 }
 
 #input-area input::placeholder {
-    color: #999;
+    color: #bbb !important;
 }
 
 #input-area button {
     padding: 12px 20px;
     border: none;
-    background: #4da6ff;       /* Blue button */
-    color: black;
+    background: #4da6ff !important;
+    color: black !important;
     margin-left: 10px;
     border-radius: 8px;
     cursor: pointer;
@@ -94,5 +84,5 @@ body {
 }
 
 #input-area button:hover {
-    background: #1a8cff;
+    background: #1a8cff !important;
 }
