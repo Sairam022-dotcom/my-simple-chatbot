@@ -1,48 +1,64 @@
-const chatWindow = document.getElementById('chatWindow');
-const chatForm = document.getElementById('chatForm');
-const userInput = document.getElementById('userInput');
-
-function addMessage(text, who='bot'){
-  const el = document.createElement('div');
-  el.className = 'msg ' + (who === 'user' ? 'user' : 'bot');
-  el.innerText = text;
-  chatWindow.appendChild(el);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
+/* ChatGPT-like full dark modern UI */
+body {
+    margin: 0;
+    padding: 0;
+    background: #0d0d0d;
+    font-family: Arial, sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-async function askServer(message){
-  // POST to your backend endpoint
-  const res = await fetch('/api/chat', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message })
-  });
-  if (!res.ok) {
-    throw new Error('Server error: ' + res.statusText);
-  }
-  const data = await res.json();
-  return data.reply;
+.chat-container {
+    width: 450px;
+    height: 600px;
+    background: #1a1a1a;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px rgba(0,0,0,0.6);
 }
 
-chatForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const text = userInput.value.trim();
-  if (!text) return;
-  addMessage('You: ' + text, 'user');
-  userInput.value = '';
-  // show typing indicator
-  const typing = document.createElement('div');
-  typing.className = 'msg bot';
-  typing.innerText = 'Bot is thinking...';
-  chatWindow.appendChild(typing);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
+.chat-header {
+    padding: 15px;
+    background: #0f6fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 12px 12px 0 0;
+}
 
-  try {
-    const reply = await askServer(text);
-    typing.remove();
-    addMessage('Bot: ' + reply, 'bot');
-  } catch (err) {
-    typing.remove();
-    addMessage('Bot: Sorry, something went wrong. ' + err.message, 'bot');
-  }
-});
+.chatbox {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.message {
+    margin: 12px 0;
+    padding: 12px 14px;
+    border-radius: 10px;
+    width: fit-content;
+    max-width: 80%;
+    line-height: 1.4;
+}
+
+/* User message */
+.user {
+    background: #0f6fff;
+    align-self: flex-end;
+}
+
+/* Bot message */
+.bot {
+    background: #2e2e2e;
+    align-self: flex-start;
+}
+
+.input-area {
+    display: flex;
+    padding: 12px;
+    background: #
+
