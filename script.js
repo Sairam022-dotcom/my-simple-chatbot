@@ -1,55 +1,58 @@
 async function sendMessage() {
-    let input = document.getElementById("userInput");
-    let text = input.value.trim();
+    const input = document.getElementById("userInput");
+    const msg = input.value.trim();
 
-    if (!text) return;
+    if (!msg) return;
 
-    addMessage(text, "user");
+    // Move title to top-left after first message (ChatGPT style)
+    const title = document.getElementById("title");
+    title.classList.remove("title-center");
+    title.classList.add("title-top");
+
+    addMessage("You", msg, "user");
+
     input.value = "";
 
-    addMessage("Searching...", "bot");
+    const apiKey = "YOUR_API_KEY";
 
-    const reply = await getAIResponse(text);
+    addMessage("MechChat", "...thinking...", "bot");
 
-    removeLastBot();
-    addMessage(reply, "bot");
-}
+    const messagesDiv = document.getElementById("messages");
 
-function addMessage(text, type) {
-    let box = document.getElementById("chatbox");
-    let div = document.createElement("div");
+    try {
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + apiKey
+            },
+            body: JSON.stringify({
+                model: "gpt-4o-mini",
+                messages: [
+                    { role: "system", content: "You are a mechanical engineering assistant." },
+                    { role: "user", content: msg }
+                ]
+            })
+        });
 
-    div.classList.add("message", type);
-    div.textContent = text;
+        const data = await response.json();
+        
+        messagesDiv.lastChild.remove(); // remove "thinking..."
 
-    box.appendChild(div);
-}
+        const reply = data.choices[0].message.content;
+        addMessage("MechChat", reply, "bot");
 
-function removeLastBot() {
-    let box = document.getElementById("chatbox");
-    let last = box.lastChild;
-
-    if (last && last.textContent === "Searching...") {
-        box.removeChild(last);
+    } catch (e) {
+        messagesDiv.lastChild.remove();
+        addMessage("MechChat", "Error: Unable to connect to OpenAI.", "bot");
     }
 }
 
-async function getAIResponse(prompt) {
-
-    const API_KEY = "YOUR_API_KEY"; // Replace carefully!
-
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${API_KEY}`
-        },
-        body: JSON.stringify({
-            model: "gpt-3.5-turbo",
-            messages: [{ role: "user", content: prompt }]
-        })
-    });
-
-    const data = await res.json();
-    return data.choices[0].message.content;
+function addMessage(sender, text, type) {
+    const messagesDiv = document.getElementById("messages");
+    const div = document.createElement("div");
+    div.classList.add("message");
+    div.innerHTML = `<span class="${type}">${sender}:</span> ${text}`;
+    messagesDiv.appendChild(div);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
