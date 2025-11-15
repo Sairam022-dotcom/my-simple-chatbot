@@ -4,7 +4,7 @@ async function sendMessage() {
 
     if (!msg) return;
 
-    // Move title to top-left
+    // Move title to top-left on first message
     const title = document.getElementById("title");
     title.classList.remove("title-center");
     title.classList.add("title-top");
@@ -36,7 +36,7 @@ async function sendMessage() {
 
         const data = await response.json();
         
-        messagesDiv.lastChild.remove(); // remove thinking
+        messagesDiv.lastChild.remove();
         const reply = data.choices[0].message.content;
 
         addMessage("MechChat", reply, "bot");
@@ -55,4 +55,3 @@ function addMessage(sender, text, type) {
     messagesDiv.appendChild(div);
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
-
