@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: mechchat-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
