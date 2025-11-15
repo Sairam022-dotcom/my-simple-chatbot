@@ -1,50 +1,39 @@
-const chatWindow = document.getElementById('chatWindow');
-const chatForm = document.getElementById('chatForm');
-const userInput = document.getElementById('userInput');
+async function sendMessage() {
+    let inputField = document.getElementById("userInput");
+    let message = inputField.value.trim();
+    if (message === "") return;
 
-function addMessage(text, who='bot'){
-  const el = document.createElement('div');
-  el.className = 'msg ' + (who === 'user' ? 'user' : 'bot');
-  el.innerText = text;
-  chatWindow.appendChild(el);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
+    displayMessage(message, "user-message");
+    inputField.value = "";
+
+    const response = await getAIResponse(message);
+    displayMessage(response, "bot-message");
 }
 
-async function askServer(message){
-  // POST to your backend endpoint
-  const res = await fetch('/api/chat', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message })
-  });
-  if (!res.ok) {
-    throw new Error('Server error: ' + res.statusText);
-  }
-  const data = await res.json();
-  return data.reply;
+function displayMessage(text, className) {
+    let chatbox = document.getElementById("chatbox");
+    let messageDiv = document.createElement("div");
+    messageDiv.classList.add(className);
+    messageDiv.textContent = text;
+    chatbox.appendChild(messageDiv);
+    chatbox.scrollTop = chatbox.scrollHeight;
 }
 
-chatForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const text = userInput.value.trim();
-  if (!text) return;
-  addMessage('You: ' + text, 'user');
-  userInput.value = '';
-  // show typing indicator
-  const typing = document.createElement('div');
-  typing.className = 'msg bot';
-  typing.innerText = 'Bot is thinking...';
-  chatWindow.appendChild(typing);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
+async function getAIResponse(question) {
+    const API_KEY = "YOUR_API_KEY";  // <-- Replace this
 
-  try {
-    const reply = await askServer(text);
-    typing.remove();
-    addMessage('Bot: ' + reply, 'bot');
-  } catch (err) {
-    typing.remove();
-    addMessage('Bot: Sorry, something went wrong. ' + err.message, 'bot');
-  }
-});
+    const result = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${API_KEY}`
+        },
+        body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [{ role: "user", content: question }]
+        })
+    });
 
-
+    const data = await result.json();
+    return data.choices[0].message.content;
+}
