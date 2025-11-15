@@ -1,12 +1,12 @@
 async function sendMessage() {
     let input = document.getElementById("userInput");
     let text = input.value.trim();
-    if (text === "") return;
+    if (!text) return;
 
     addMessage(text, "user");
     input.value = "";
 
-    addMessage("Typing...", "bot"); // temporary loading message
+    addMessage("Typing...", "bot"); // temporary bubble
 
     const reply = await getAIResponse(text);
 
@@ -15,7 +15,7 @@ async function sendMessage() {
 }
 
 function addMessage(text, sender) {
-    let chatbox = document.getElementById("chatbox");
+    const chatbox = document.getElementById("chatbox");
 
     let msg = document.createElement("div");
     msg.classList.add("message", sender);
@@ -26,8 +26,9 @@ function addMessage(text, sender) {
 }
 
 function removeTypingMessage() {
-    let chatbox = document.getElementById("chatbox");
-    let last = chatbox.lastChild;
+    const chatbox = document.getElementById("chatbox");
+    const last = chatbox.lastChild;
+
     if (last && last.textContent === "Typing...") {
         chatbox.removeChild(last);
     }
@@ -35,7 +36,7 @@ function removeTypingMessage() {
 
 async function getAIResponse(prompt) {
 
-    const API_KEY = "YOUR_API_KEY";   // <-- Replace with your OpenAI key
+    const API_KEY = "YOUR_API_KEY";  // replace safely
 
     try {
         const res = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -52,8 +53,8 @@ async function getAIResponse(prompt) {
 
         const data = await res.json();
         return data.choices[0].message.content;
-        
-    } catch (error) {
-        return "Error: Could not connect to AI server.";
+
+    } catch (e) {
+        return "Error: Cannot reach AI servers.";
     }
 }
