@@ -1,10 +1,86 @@
-body { background:#000; color:white; font-family:Arial,sans-serif; margin:0; text-align:center; }
-#title { font-size:45px; margin-top:60px; font-weight:bold; }
-.title-small { font-size:25px; text-align:left; margin-top:20px; padding-left:40px; }
-.chat-container { width:60%; margin:40px auto; background:#111; padding:20px; border-radius:12px; }
-#chat-box { height:420px; overflow-y:auto; background:#222; padding:15px; border-radius:10px; text-align:left; }
-.user-msg { background:#444; padding:12px; margin:10px; border-radius:8px; width:fit-content; }
-.bot-msg { background:#0a7a42; padding:12px; margin:10px; border-radius:8px; width:fit-content; }
-.input-area { display:flex; margin-top:20px; }
-#user-input { flex:1; padding:12px; border-radius:8px; border:none; background:#333; color:white; }
-#send-btn { padding:12px 20px; margin-left:10px; background:#00c06a; border:none; border-radius:8px; color:white; cursor:pointer; }
+/* Full black background */
+body { 
+  background: #000; 
+  color: white; 
+  font-family: Arial, sans-serif; 
+  margin: 0; 
+  text-align: center; 
+}
+
+/* Title */
+#title { 
+  font-size: 45px; 
+  margin-top: 60px; 
+  font-weight: bold; 
+  transition: 0.4s ease; 
+}
+
+/* Small title after first message */
+.title-small { 
+  font-size: 25px; 
+  text-align: left; 
+  margin-top: 20px; 
+  padding-left: 40px; 
+}
+
+/* Chat container */
+.chat-container { 
+  width: 60%; 
+  margin: 40px auto; 
+  background: #111; 
+  padding: 20px; 
+  border-radius: 12px; 
+}
+
+/* Chat box */
+#chat-box { 
+  height: 420px; 
+  overflow-y: auto; 
+  background: #222; 
+  padding: 15px; 
+  border-radius: 10px; 
+  text-align: left; 
+}
+
+/* User messages */
+.user-msg { 
+  background: #444; 
+  padding: 12px; 
+  margin: 10px; 
+  border-radius: 8px; 
+  width: fit-content; 
+}
+
+/* Bot messages */
+.bot-msg { 
+  background: #0a7a42; 
+  padding: 12px; 
+  margin: 10px; 
+  border-radius: 8px; 
+  width: fit-content; 
+}
+
+/* Input area */
+.input-area { 
+  display: flex; 
+  margin-top: 20px; 
+}
+
+#user-input { 
+  flex: 1; 
+  padding: 12px; 
+  border-radius: 8px; 
+  border: none; 
+  background: #333; 
+  color: white; 
+}
+
+#send-btn { 
+  padding: 12px 20px; 
+  margin-left: 10px; 
+  background: #00c06a; 
+  border: none; 
+  border-radius: 8px; 
+  color: white; 
+  cursor: pointer; 
+}
