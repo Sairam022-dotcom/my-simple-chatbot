@@ -4,7 +4,7 @@ async function sendMessage() {
 
     if (!msg) return;
 
-    // Move title to top-left after first message
+    // Move title to top-left
     const title = document.getElementById("title");
     title.classList.remove("title-center");
     title.classList.add("title-top");
@@ -55,3 +55,4 @@ function addMessage(sender, text, type) {
     messagesDiv.appendChild(div);
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
+
