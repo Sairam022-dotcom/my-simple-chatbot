@@ -1,4 +1,48 @@
-body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
-input { padding: 8px; }
-button { padding: 8px; }
-#chat p { margin: 8px 0; }
+const chatWindow = document.getElementById('chatWindow');
+const chatForm = document.getElementById('chatForm');
+const userInput = document.getElementById('userInput');
+
+function addMessage(text, who='bot'){
+  const el = document.createElement('div');
+  el.className = 'msg ' + (who === 'user' ? 'user' : 'bot');
+  el.innerText = text;
+  chatWindow.appendChild(el);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+async function askServer(message){
+  // POST to your backend endpoint
+  const res = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message })
+  });
+  if (!res.ok) {
+    throw new Error('Server error: ' + res.statusText);
+  }
+  const data = await res.json();
+  return data.reply;
+}
+
+chatForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const text = userInput.value.trim();
+  if (!text) return;
+  addMessage('You: ' + text, 'user');
+  userInput.value = '';
+  // show typing indicator
+  const typing = document.createElement('div');
+  typing.className = 'msg bot';
+  typing.innerText = 'Bot is thinking...';
+  chatWindow.appendChild(typing);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+
+  try {
+    const reply = await askServer(text);
+    typing.remove();
+    addMessage('Bot: ' + reply, 'bot');
+  } catch (err) {
+    typing.remove();
+    addMessage('Bot: Sorry, something went wrong. ' + err.message, 'bot');
+  }
+});
