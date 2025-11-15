@@ -1,5 +1,5 @@
 {
-  "name": "https://my-simple-chatbot-dvjv.onrender.com",
+  "name": "my-simple-chatbot",
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
