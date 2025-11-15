@@ -1,5 +1,5 @@
 {
-  "name": "mechchat-backend",
+  "name": "my-simple-chatbot",
   "version": "1.0.0",
   "main": "server.js",
   "type": "module",
