@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: mechchat-backend
+    name: my-simple-chatbot
     env: node
     region: oregon
     plan: free
