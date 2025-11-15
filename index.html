@@ -1,15 +1,30 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Simple Chatbot</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MechChat — Your Mechanical Assistant</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Simple Chatbot</h1>
-  <div id="chat" style="border:1px solid #ccc;padding:10px;height:300px;overflow:auto"></div>
-  <input id="msg" placeholder="Type a message" style="width:70%">
-  <button id="send">Send</button>
+  <main class="container">
+    <header class="topbar">
+      <h1>MechChat</h1>
+      <p class="subtitle">Ask mechanical engineering questions — powered by OpenAI</p>
+    </header>
+
+    <section class="chat-window" id="chatWindow" aria-live="polite"></section>
+
+    <form id="chatForm" class="composer" autocomplete="off">
+      <input id="userInput" class="input" type="text" placeholder="Ask about torque, CNC, materials..." />
+      <button id="sendBtn" class="btn" type="submit">Send</button>
+    </form>
+
+    <footer class="footer">
+      <small>Built for practice. Keep your API key secret on the server.</small>
+    </footer>
+  </main>
+
   <script src="script.js"></script>
 </body>
 </html>
