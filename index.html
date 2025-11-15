@@ -3,27 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chatbot</title>
+    <title>AI Search Chat</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="chat-wrapper">
+<div class="center-container">
 
-    <div class="chatbox" id="chatbox"></div>
+    <h1 class="title">Ask Anything</h1>
 
-    <div class="input-area">
-        <input 
-            type="text" 
-            id="userInput" 
-            placeholder="Message Chatbot..." 
-            onkeypress="if(event.key === 'Enter') sendMessage()"
-        />
-        <button onclick="sendMessage()">➤</button>
+    <div class="input-box">
+        <input type="text" id="userInput" placeholder="Ask about torque, CNC, materials..." 
+               onkeypress="if(event.key === 'Enter') sendMessage()">
+        <button onclick="sendMessage()">🔍</button>
     </div>
 
 </div>
 
+<div id="chatbox" class="chatbox"></div>
+
 <script src="script.js"></script>
 </body>
 </html>
+
