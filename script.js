@@ -58,8 +58,6 @@ function botReply(text) {
   if (text.includes('cam')) return 'CAM stands for Computer-Aided Manufacturing used to control machines.';
   if (text.includes('mechatronics')) return 'Mechatronics blends mechanical engineering with electronics, control, and software.';
   if (text.includes('robotics')) return 'Robotics involves designing and controlling machines that can perform tasks automatically.';
-
-
   return "Sorry, I don't understand that yet.";
 }
 
