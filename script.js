@@ -1,39 +1,54 @@
-import express from "express";
-import fetch from "node-fetch";
-import cors from "cors";
-import dotenv from "dotenv";
+// 🔹 REPLACE this with your Render backend link
+const BACKEND_URL = "https://my-simple-chatbot-dvjv.onrender.com";
 
-dotenv.config();
-const app = express();
+// Elements
+const title = document.getElementById("title");
+const sendBtn = document.getElementById("send-btn");
+const userInput = document.getElementById("user-input");
+const chatBox = document.getElementById("chat-box");
 
-app.use(express.json());
-app.use(cors());
+// Add messages
+function addMessage(text, sender) {
+    const msg = document.createElement("div");
+    msg.classList.add(sender === "user" ? "user-msg" : "bot-msg");
+    msg.textContent = text;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
 
-app.post("/api/chat", async (req, res) => {
-  const userMessage = req.body.message;
+// Send message
+async function sendMessage() {
+    const userMessage = userInput.value.trim();
+    if (userMessage === "") return;
 
-  try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: "gpt-3.5-turbo",
-        messages: [
-          { role: "user", content: userMessage }
-        ]
-      })
-    });
+    addMessage(userMessage, "user");
+    userInput.value = "";
 
-    const data = await response.json();
-    res.json({ reply: data.choices[0].message.content });
-  } catch (error) {
-    res.status(500).json({ error: "Server error: " + error.message });
-  }
-});
+    // Move title to top-left after first message
+    title.classList.add("title-small");
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
+    try {
+        const response = await fetch(`${BACKEND_URL}/chat`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: userMessage })
+        });
+
+        const data = await response.json();
+
+        if (data.reply) {
+            addMessage(data.reply, "bot");
+        } else {
+            addMessage("Bot error: No reply received.", "bot");
+        }
+
+    } catch (err) {
+        addMessage("❌ Cannot connect to server. Check Render backend.", "bot");
+    }
+}
+
+// Event listeners
+sendBtn.addEventListener("click", sendMessage);
+userInput.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") sendMessage();
 });
