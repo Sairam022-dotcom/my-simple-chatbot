@@ -1,84 +1,80 @@
-/* Full ChatGPT-like clean design */
 body {
     margin: 0;
-    background: #212121;
+    padding: 0;
+    background: #f3f4f6;
     font-family: "Segoe UI", Arial, sans-serif;
-    color: #ffffff;
-}
-
-.chat-wrapper {
-    height: 100vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
-.chatbox {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
+/* Centered search engine block */
+.center-container {
+    text-align: center;
+    margin-top: 120px;
+}
+
+.title {
+    font-size: 38px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #222;
+}
+
+/* Search box like Google */
+.input-box {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    max-width: 90%;
+    background: white;
+    padding: 10px;
+    border-radius: 40px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
 }
 
-/* ChatGPT-style bubbles */
-.message {
-    max-width: 70%;
-    padding: 14px 16px;
-    border-radius: 10px;
-    font-size: 16px;
-    margin-bottom: 15px;
-    line-height: 1.5;
-}
-
-/* User message bubble */
-.user {
-    align-self: flex-end;
-    background: #0b93f6;
-    color: white;
-    border-bottom-right-radius: 2px;
-}
-
-/* Bot message bubble */
-.bot {
-    align-self: flex-start;
-    background: #2f2f2f;
-    color: #e2e2e2;
-    border-bottom-left-radius: 2px;
-}
-
-/* Input box area (like ChatGPT) */
-.input-area {
-    padding: 15px;
-    background: #1e1e1e;
-    display: flex;
-    gap: 10px;
-    border-top: 1px solid #3a3a3a;
-}
-
-input {
+.input-box input {
     flex: 1;
-    padding: 14px;
-    border-radius: 8px;
     border: none;
-    background: #2f2f2f;
-    color: white;
-    font-size: 16px;
-}
-
-input:focus {
-    outline: 2px solid #0b93f6;
-}
-
-button {
-    padding: 12px 18px;
-    background: #0b93f6;
-    border: none;
-    border-radius: 8px;
-    color: white;
+    outline: none;
     font-size: 18px;
-    cursor: pointer;
+    padding: 8px 15px;
+    background: none;
 }
 
-button:hover {
-    background: #0077d6;
+.input-box button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+/* Chat output area */
+.chatbox {
+    width: 600px;
+    max-width: 90%;
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.message {
+    padding: 15px;
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    font-size: 17px;
+    color: #222;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+/* User bubble */
+.user {
+    border-left: 4px solid #0b93f6;
+}
+
+/* Bot bubble */
+.bot {
+    border-left: 4px solid #10b981;
 }
