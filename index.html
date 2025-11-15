@@ -4,31 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MechChat</title>
-  <style>
-    /* Full black background */
-    body { background:#000; color:white; font-family:Arial,sans-serif; margin:0; text-align:center; }
-
-    /* Title */
-    #title { font-size:45px; margin-top:60px; font-weight:bold; transition:0.4s ease; }
-    .title-small { font-size:25px; text-align:left; margin-top:20px; padding-left:40px; }
-
-    /* Chat container */
-    .chat-container { width:60%; margin:40px auto; background:#111; padding:20px; border-radius:12px; }
-
-    /* Chat box */
-    #chat-box { height:420px; overflow-y:auto; background:#222; padding:15px; border-radius:10px; text-align:left; }
-
-    /* User messages */
-    .user-msg { background:#444; padding:12px; margin:10px; border-radius:8px; width:fit-content; }
-
-    /* Bot messages */
-    .bot-msg { background:#0a7a42; padding:12px; margin:10px; border-radius:8px; width:fit-content; }
-
-    /* Input area */
-    .input-area { display:flex; margin-top:20px; }
-    #user-input { flex:1; padding:12px; border-radius:8px; border:none; background:#333; color:white; }
-    #send-btn { padding:12px 20px; margin-left:10px; background:#00c06a; border:none; border-radius:8px; color:white; cursor:pointer; }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -44,58 +20,6 @@
     </div>
   </div>
 
-  <script>
-    const title = document.getElementById("title");
-    const sendBtn = document.getElementById("send-btn");
-    const userInput = document.getElementById("user-input");
-    const chatBox = document.getElementById("chat-box");
-
-    // Predefined mechanical engineering answers
-    const answers = {
-      "torque": "Torque is a measure of the rotational force on an object, calculated as force × distance.",
-      "cnc": "CNC stands for Computer Numerical Control, used for automated machining.",
-      "material": "Mechanical engineers study material properties like strength, hardness, and elasticity.",
-      "gear": "A gear is a rotating machine part with cut teeth that meshes with another gear to transmit torque.",
-      "engine": "An engine converts fuel into mechanical energy to do work."
-    };
-
-    // Add message to chat
-    function addMessage(text, sender){
-      const msg = document.createElement("div");
-      msg.classList.add(sender==="user"?"user-msg":"bot-msg");
-      msg.textContent = text;
-      chatBox.appendChild(msg);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    // Send message
-    function sendMessage(){
-      const message = userInput.value.trim();
-      if(!message) return;
-
-      addMessage(message, "user");
-      userInput.value = "";
-
-      // Move title to top-left after first message
-      title.classList.add("title-small");
-
-      // Find answer or default
-      let found = false;
-      for(const key in answers){
-        if(message.toLowerCase().includes(key)){
-          addMessage(answers[key], "bot");
-          found = true;
-          break;
-        }
-      }
-      if(!found) addMessage("Sorry, I don't know the answer yet.", "bot");
-    }
-
-    sendBtn.addEventListener("click", sendMessage);
-    userInput.addEventListener("keypress", e=>{
-      if(e.key==="Enter") sendMessage();
-    });
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
