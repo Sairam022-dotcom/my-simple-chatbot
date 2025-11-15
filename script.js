@@ -3,7 +3,7 @@ const sendBtn = document.getElementById("send-btn");
 const userInput = document.getElementById("user-input");
 const chatBox = document.getElementById("chat-box");
 
-// Simulated mechanical answers
+// Predefined mechanical engineering answers
 const answers = {
   "torque": "Torque is a measure of the rotational force on an object, calculated as force × distance.",
   "cnc": "CNC stands for Computer Numerical Control, used for automated machining.",
@@ -12,14 +12,16 @@ const answers = {
   "engine": "An engine converts fuel into mechanical energy to do work."
 };
 
+// Add message to chat
 function addMessage(text, sender){
   const msg = document.createElement("div");
-  msg.classList.add(sender === "user" ? "user-msg" : "bot-msg");
+  msg.classList.add(sender==="user"?"user-msg":"bot-msg");
   msg.textContent = text;
   chatBox.appendChild(msg);
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+// Send message
 function sendMessage(){
   const message = userInput.value.trim();
   if(!message) return;
@@ -30,7 +32,7 @@ function sendMessage(){
   // Move title to top-left after first message
   title.classList.add("title-small");
 
-  // Find a simple answer or default
+  // Find answer or default
   let found = false;
   for(const key in answers){
     if(message.toLowerCase().includes(key)){
@@ -42,7 +44,8 @@ function sendMessage(){
   if(!found) addMessage("Sorry, I don't know the answer yet.", "bot");
 }
 
+// Event listeners
 sendBtn.addEventListener("click", sendMessage);
 userInput.addEventListener("keypress", e=>{
-  if(e.key === "Enter") sendMessage();
+  if(e.key==="Enter") sendMessage();
 });
