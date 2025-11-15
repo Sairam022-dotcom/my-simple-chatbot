@@ -15,7 +15,7 @@ const answers = {
 // Add message to chat
 function addMessage(text, sender){
   const msg = document.createElement("div");
-  msg.classList.add(sender==="user"?"user-msg":"bot-msg");
+  msg.classList.add(sender === "user" ? "user-msg" : "bot-msg");
   msg.textContent = text;
   chatBox.appendChild(msg);
   chatBox.scrollTop = chatBox.scrollHeight;
@@ -46,6 +46,6 @@ function sendMessage(){
 
 // Event listeners
 sendBtn.addEventListener("click", sendMessage);
-userInput.addEventListener("keypress", e=>{
-  if(e.key==="Enter") sendMessage();
+userInput.addEventListener("keypress", e => {
+  if(e.key === "Enter") sendMessage();
 });
