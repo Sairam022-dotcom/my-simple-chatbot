@@ -1,5 +1,5 @@
 // 🔹 REPLACE this with your Render backend link
-const BACKEND_URL = my-simple-chatbot-dvjv.onrender.com;
+const BACKEND_URL = "my-simple-chatbot-dvjv.onrender.com";
 
 // Elements
 const title = document.getElementById("title");
