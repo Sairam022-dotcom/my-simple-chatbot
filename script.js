@@ -1,57 +1,39 @@
-async function sendMessage() {
-    const input = document.getElementById("userInput");
-    const msg = input.value.trim();
+import express from "express";
+import fetch from "node-fetch";
+import cors from "cors";
+import dotenv from "dotenv";
 
-    if (!msg) return;
+dotenv.config();
+const app = express();
 
-    // Move title to top-left on first message
-    const title = document.getElementById("title");
-    title.classList.remove("title-center");
-    title.classList.add("title-top");
+app.use(express.json());
+app.use(cors());
 
-    addMessage("You", msg, "user");
-    input.value = "";
+app.post("/api/chat", async (req, res) => {
+  const userMessage = req.body.message;
 
-    const apiKey = "YOUR_API_KEY";
+  try {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        messages: [
+          { role: "user", content: userMessage }
+        ]
+      })
+    });
 
-    addMessage("MechChat", "...thinking...", "bot");
+    const data = await response.json();
+    res.json({ reply: data.choices[0].message.content });
+  } catch (error) {
+    res.status(500).json({ error: "Server error: " + error.message });
+  }
+});
 
-    const messagesDiv = document.getElementById("messages");
-
-    try {
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + apiKey
-            },
-            body: JSON.stringify({
-                model: "gpt-4o-mini",
-                messages: [
-                    { role: "system", content: "You are a mechanical engineering expert assistant." },
-                    { role: "user", content: msg }
-                ]
-            })
-        });
-
-        const data = await response.json();
-        
-        messagesDiv.lastChild.remove();
-        const reply = data.choices[0].message.content;
-
-        addMessage("MechChat", reply, "bot");
-
-    } catch (error) {
-        messagesDiv.lastChild.remove();
-        addMessage("MechChat", "Error: Unable to connect to OpenAI.", "bot");
-    }
-}
-
-function addMessage(sender, text, type) {
-    const messagesDiv = document.getElementById("messages");
-    const div = document.createElement("div");
-    div.classList.add("message");
-    div.innerHTML = `<span class="${type}">${sender}:</span> ${text}`;
-    messagesDiv.appendChild(div);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
