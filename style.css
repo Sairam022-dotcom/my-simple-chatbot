@@ -1,80 +1,81 @@
 body {
     margin: 0;
-    padding: 0;
-    background: #f3f4f6;
-    font-family: "Segoe UI", Arial, sans-serif;
+    font-family: Arial, sans-serif;
+    background: #f4f4f7;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* Centered search engine block */
-.center-container {
-    text-align: center;
+.title-center {
+    font-size: 42px;
+    font-weight: bold;
     margin-top: 120px;
-}
-
-.title {
-    font-size: 38px;
-    font-weight: 600;
-    margin-bottom: 25px;
+    transition: 0.5s;
     color: #222;
 }
 
-/* Search box like Google */
-.input-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 600px;
-    max-width: 90%;
+.title-top {
+    font-size: 26px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    margin: 0;
+}
+
+#chat-container {
+    width: 100%;
+    max-width: 700px;
+    margin-top: 40px;
+}
+
+#messages {
     background: white;
-    padding: 10px;
-    border-radius: 40px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border: 1px solid #ddd;
-}
-
-.input-box input {
-    flex: 1;
-    border: none;
-    outline: none;
-    font-size: 18px;
-    padding: 8px 15px;
-    background: none;
-}
-
-.input-box button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 22px;
-}
-
-/* Chat output area */
-.chatbox {
-    width: 600px;
-    max-width: 90%;
-    margin-top: 50px;
-    margin-bottom: 40px;
+    padding: 20px;
+    height: 450px;
+    overflow-y: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 .message {
-    padding: 15px;
-    background: white;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    font-size: 17px;
-    color: #222;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    margin-bottom: 18px;
 }
 
-/* User bubble */
 .user {
-    border-left: 4px solid #0b93f6;
+    font-weight: bold;
+    color: #0055ff;
 }
 
-/* Bot bubble */
 .bot {
-    border-left: 4px solid #10b981;
+    font-weight: bold;
+    color: #22aa22;
+}
+
+#input-area {
+    display: flex;
+    margin-top: 15px;
+}
+
+#input-area input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+#input-area button {
+    padding: 12px 20px;
+    border: none;
+    background: #0055ff;
+    color: white;
+    margin-left: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#input-area button:hover {
+    background: #0042cc;
 }
